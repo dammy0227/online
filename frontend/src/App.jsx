@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import AdminDashboard from "./pages/admin/adminDashboard/adminDashboard";
+import AdminDashboards from "./pages/admin/AdminDashboards/AdminDashboards";
 import StudentDashboard from "./pages/student/studentDashboard/StudentDashboard";
 
 // Admin subpages
@@ -30,7 +30,7 @@ import "./App.css";
 import Layout from "./pages/student/Layout/Layout";
 
 const App = () => {
-  return (
+  return ( 
     <Router>
       <Routes>
         {/* Public routes */}
@@ -43,7 +43,7 @@ const App = () => {
           path="/admin/*"
           element={
             <ProtectedRoute role="admin">
-              <AdminDashboard />
+              <AdminDashboards />
             </ProtectedRoute>
           }
         >

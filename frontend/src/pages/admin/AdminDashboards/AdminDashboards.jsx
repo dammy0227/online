@@ -1,13 +1,15 @@
-import React from "react";
+import React from 'react'
 import { Outlet } from "react-router-dom";
 import AdminLayout from "../../../layout/adminLayout/AdminLayout";
 
-const AdminDashboard = () => {
+const AdminDashboards = () => {
   return (
-    <AdminLayout>
+    <div>
+        <AdminLayout>
       <Outlet /> {/* This is where nested routes will appear */}
     </AdminLayout>
-  );
-};
+    </div>
+  )
+}
 
-export default AdminDashboard;
+export default AdminDashboards
