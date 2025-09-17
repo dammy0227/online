@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: [
-    "https://online-rosy.vercel.app/",
+    "https://online-rosy.vercel.app",
     "http://localhost:5173"
   ],
   methods: ["*"],   // allows all
