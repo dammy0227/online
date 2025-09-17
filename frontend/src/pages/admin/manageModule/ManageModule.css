@@ -1,0 +1,222 @@
+/* ---------- Container ---------- */
+.manage-module-container {
+  padding: 2rem;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #6a0dad;
+}
+
+/* ---------- Messages ---------- */
+.error {
+  color: #d9534f;
+  margin-bottom: 1rem;
+}
+.success {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Add Module Button ---------- */
+.add-module-btn {
+  background-color: #6a0dad;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s;
+}
+.add-module-btn:hover {
+  background-color: #6a0dad;
+}
+
+/* ---------- Table ---------- */
+.module-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.module-table th,
+.module-table td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: left;
+}
+.module-table th {
+  background-color: #f1f1f1;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  color: white;
+  transition: background-color 0.3s;
+}
+.edit-btn {
+  background-color: #28a745;
+}
+.edit-btn:hover {
+  background-color: #218838;
+}
+.delete-btn {
+  background-color: #dc3545;
+}
+.delete-btn:hover {
+  background-color: #c82333;
+}
+.no-modules {
+  text-align: center;
+  padding: 1rem;
+  color: #555;
+}
+
+/* ---------- Modal / Popup ---------- */
+.module-form-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.module-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.module-form h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.module-form input,
+.module-form textarea,
+.module-form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.module-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.form-buttons button:first-child {
+  background-color: #6a0dad;
+  color: white;
+  margin-right: 0.5rem;
+}
+.form-buttons button:first-child:hover {
+  background-color: #6a0dad;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  margin-left: 0.5rem;
+}
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* ---------- 📱 Responsive Enhancements ---------- */
+@media (max-width: 768px) {
+  .manage-module-container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  /* Horizontal scrolling for the table */
+  .module-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .module-table th,
+  .module-table td {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .add-module-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-buttons button {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .module-form {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .module-form input,
+  .module-form textarea,
+  .module-form select {
+    font-size: 0.95rem;
+  }
+
+  .form-buttons button {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.8rem;
+  }
+}

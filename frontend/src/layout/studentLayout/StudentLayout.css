@@ -1,0 +1,132 @@
+.student-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fb;
+}
+
+/* ===== Navbar ===== */
+.student-container {
+  background-color: #6a0dad;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;   /* keep dropdown anchored */
+  z-index: 1000;        /* ensure header stays above page */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ===== Links ===== */
+.student-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  transition: max-height 0.3s ease;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.nav-link:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+.nav-link.active {
+  background-color: rgba(255,255,255,0.3);
+  font-weight: 600;
+}
+
+.logout-btn {
+  background-color: #fff;
+  color: #6a0dad;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+.logout-btn:hover {
+  background-color: #eee;
+}
+
+/* ===== Hamburger ===== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.menu-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animate into X when open */
+.menu-toggle.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 5px);
+}
+.menu-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -5px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Dropdown menu */
+  .student-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #6a0dad;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+    z-index: 9999;              /* <<< keeps menu above main content */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .student-links.show {
+    max-height: 300px;          /* enough to reveal all links */
+    padding: 0.7rem 0;
+  }
+
+  .student-links .nav-link,
+  .student-links .logout-btn {
+    margin: 0.3rem 1rem;
+    width: calc(100% - 2rem);
+    text-align: left;
+  }
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}

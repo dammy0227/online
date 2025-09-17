@@ -1,0 +1,265 @@
+/* ===== Container ===== */
+.mq-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #1f2937;
+}
+
+/* ===== Titles ===== */
+.mq-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #6a0dad;
+}
+
+/* ===== Messages ===== */
+.mq-error {
+  color: #dc2626; /* red-600 */
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.mq-success {
+  color: #16a34a; /* green-600 */
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+/* ===== Buttons ===== */
+.mq-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.25s ease, transform 0.15s ease;
+  color: #fff;
+}
+
+.mq-btn:hover {
+  transform: translateY(-1px);
+}
+
+.mq-btn-add{
+   background-color:#6a0dad;
+}
+.mq-btn-update {
+  background-color: #16a34a;
+}
+
+.mq-btn-update:hover {
+  background-color: #16a34a;
+}
+
+.mq-btn-delete {
+  background-color: #ef4444;
+}
+
+.mq-btn-delete:hover {
+  background-color: #dc2626;
+}
+
+.mq-btn-cancel {
+  background-color: #6b7280;
+}
+
+.mq-btn-cancel:hover {
+  background-color: #4b5563;
+}
+
+/* ===== Inputs & Selects ===== */
+.mq-select,
+.mq-input {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.mq-input:focus,
+.mq-select:focus {
+  border-color: #6a0dad;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+}
+
+/* ===== Question Card ===== */
+.mq-question-card {
+  border: 1px solid #e5e7eb;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #f9fafb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Quiz Table ===== */
+.mq-quiz-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  table-layout: fixed;
+}
+
+.mq-quiz-table th,
+.mq-quiz-table td {
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.mq-quiz-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+}
+
+.mq-quiz-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.mq-quiz-table button {
+  margin-right: 6px;
+  margin-top: 4px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+}
+
+/* ===== Popup ===== */
+.mq-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.mq-popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 480px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.mq-popup h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #6a0dad;
+}
+
+/* Popup actions */
+.mq-popup-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+  .mq-container {
+    padding: 15px;
+  }
+
+  .mq-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .mq-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Popup adjustments */
+  .mq-popup {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .mq-popup-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Question card */
+  .mq-question-card {
+    padding: 12px;
+  }
+
+  .mq-input,
+  .mq-select {
+    font-size: 0.9rem;
+  }
+
+  /* Table adjustments */
+  .mq-quiz-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .mq-quiz-table th,
+  .mq-quiz-table td {
+    padding: 10px;
+  }
+
+  .mq-quiz-table button {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mq-title {
+    font-size: 1.25rem;
+  }
+
+  .mq-btn {
+    font-size: 0.85rem;
+  }
+
+  .mq-popup h2 {
+    font-size: 1.2rem;
+  }
+
+  .mq-input,
+  .mq-select {
+    font-size: 0.85rem;
+  }
+
+  .mq-popup {
+    padding: 15px;
+  }
+}

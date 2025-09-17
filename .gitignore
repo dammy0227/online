@@ -1,0 +1,53 @@
+# ------------------------------
+# Logs
+# ------------------------------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------
+# Dependency directories
+# (ignore node_modules everywhere)
+# ------------------------------
+node_modules/
+**/node_modules/
+
+# ------------------------------
+# Environment variables
+# (ignore every .env and .env.* file in all folders)
+# ------------------------------
+.env
+.env.*
+**/.env
+**/.env.*
+
+# ------------------------------
+# Build / Output
+# ------------------------------
+dist/
+dist-ssr/
+build/
+.next/
+out/
+
+# ------------------------------
+# Editor & System files
+# ------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ------------------------------
+# Misc
+# ------------------------------
+*.local

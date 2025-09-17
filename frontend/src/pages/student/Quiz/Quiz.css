@@ -1,0 +1,70 @@
+.options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-page{
+      max-width: 1200px;
+      margin: auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.option input[type="radio"] {
+  margin-right: 0.25rem;
+}
+
+.option-label {
+  font-weight: bold;
+  margin-right: 0.25rem;
+}
+
+.text-answer {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.quiz-card {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.quiz-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #550a8a;
+  color: white;
+}
+
+.results {
+  margin-top: 1rem;
+}
+
+.result-item {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .options-row {
+    flex-direction: column;
+  }
+}

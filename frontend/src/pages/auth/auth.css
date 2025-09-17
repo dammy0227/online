@@ -1,0 +1,137 @@
+/* Container for the whole register box */
+.auth-container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.auth-container > h2 {
+  color: #6A0DAD;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Form wrapper */
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+/* Input fields */
+.auth-wrapper input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.auth-wrapper input:focus {
+  border-color: #6A0DAD;
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
+}
+
+/* Submit button */
+.auth-wrapper button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #6A0DAD;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-wrapper button:hover:not(:disabled) {
+  background-color: #540b99;
+  transform: translateY(-2px);
+}
+
+.auth-wrapper button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Messages */
+.auth-container p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.auth-container p[style*="green"] {
+  color: #10b981 !important;
+  font-weight: 600;
+}
+
+.auth-container p[style*="red"] {
+  color: #ef4444 !important;
+  font-weight: 600;
+}
+
+/* Toggle link INSIDE the auth card */
+.auth-toggle-inside {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #555;
+}
+
+.auth-toggle-inside .link-btn {
+  background: none;
+  border: none;
+  color: #6A0DAD;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-toggle-inside .link-btn:hover {
+  color: #540b99;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.link-btn:hover{
+      background-color: transparent !important;
+}
+
+@media screen and (max-width: 780px) {
+      .auth-container{
+             margin: 0 auto;
+             margin-bottom: 40px;
+             width: 600px;
+      }
+ }
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .auth-container{
+             margin: 0 auto;
+             margin-bottom: 40px;
+             width: 300px;
+      }
+  .auth-container > h2 {
+    font-size: 1.4rem;
+  }
+
+  .auth-wrapper input,
+  .auth-wrapper button {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
