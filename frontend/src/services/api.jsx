@@ -3,7 +3,8 @@ import axios from "axios";
 
 // Adjust to your backend URL
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // replace with deployed backend URL
+  baseURL: "https://online-zqrr.onrender.com/api",
+  headers: { 'Content-Type': 'application/json' }
 });
 
 // Attach token (if exists) to every request
