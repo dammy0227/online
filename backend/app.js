@@ -14,7 +14,15 @@ import { notFound, errorHandler } from "./middleware/errorHandler.js";
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://online-rosy.vercel.app/",
+    "http://localhost:5173"
+  ],
+  methods: ["*"],   // allows all
+  credentials: true,
+}));
+;
 app.use(express.json());
 app.use(morgan("dev"));
 
