@@ -2,10 +2,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerThunk, loginThunk } from "./authThunks";
 
+const savedUser = JSON.parse(localStorage.getItem("user"));
+const savedToken = localStorage.getItem("token");
+
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
-  token: localStorage.getItem("token") || null,
-  loading: false,
+  user: savedUser || null,
+  token: savedToken || null,
+  loading: true, // ✅ start true, avoid flicker
   error: null,
   successMessage: null,
 };
@@ -14,6 +17,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setLoaded: (state) => {
+      state.loading = false; // ✅ called once app initializes
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -22,13 +28,13 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       localStorage.removeItem("token");
     },
-      clearError: (state) => {
+    clearError: (state) => {
       state.error = null;
     },
   },
   extraReducers: (builder) => {
-    // REGISTER
     builder
+      // REGISTER
       .addCase(registerThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -37,17 +43,15 @@ const authSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;
-        state.successMessage = action.payload.message;
         localStorage.setItem("user", JSON.stringify(action.payload.user));
         localStorage.setItem("token", action.payload.token);
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
 
-    // LOGIN
-    builder
+      // LOGIN
       .addCase(loginThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -56,7 +60,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;
-        state.successMessage = action.payload.message;
         localStorage.setItem("user", JSON.stringify(action.payload.user));
         localStorage.setItem("token", action.payload.token);
       })
@@ -67,5 +70,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { logout, clearError, setLoaded } = authSlice.actions;
 export default authSlice.reducer;

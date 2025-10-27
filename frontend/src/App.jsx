@@ -1,6 +1,8 @@
 // src/App.js
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoaded } from "./features/auth/authSlice";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -30,6 +32,13 @@ import "./App.css";
 import Layout from "./pages/student/Layout/Layout";
 
 const App = () => {
+   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setLoaded());
+  }, [dispatch]);
+  
+  
   return ( 
     <Router>
       <Routes>
