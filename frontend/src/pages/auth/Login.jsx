@@ -24,15 +24,16 @@ const Login = ({ switchToRegister }) => {
 }, [dispatch]);
 
   // Redirect after login
-  useEffect(() => {
-    if (token && user) {
-      if (user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/student");
-      }
+useEffect(() => {
+  if (token && user) {
+    if (user.role === "admin") {
+      navigate("/admin", { replace: true });
+    } else {
+      navigate("/student", { replace: true });
     }
-  }, [token, user, navigate]);
+  }
+}, [token, user, navigate]);
+
 
   return (
     <div className="auth-container">

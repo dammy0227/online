@@ -40,48 +40,53 @@ const App = () => {
   
   
   return ( 
-    <Router>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Layout />} /> {/* 👈 Always public */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+<Router>
+  <Routes>
+    {/* ✅ Public Landing Page */}
+    <Route path="/" element={<Layout />} />
 
-        {/* Admin protected routes */}
-        <Route
-          path="/admin/*"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashboards />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Navigate to="manage-courses" replace />} />
-          <Route path="manage-courses" element={<ManageCourse />} />
-          <Route path="manage-modules" element={<ManageModule />} />
-          <Route path="manage-quizzes" element={<ManageQuizze />} />
-          <Route path="user-stats" element={<UserStat />} />
-        </Route>
+    {/* ✅ Auth Pages */}
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
 
-        {/* Student protected routes */}
-        <Route
-          path="/student/*"
-          element={
-            <ProtectedRoute role="student">
-              <StudentDashboard />
-            </ProtectedRoute>
-          }
-        >
+    {/* ✅ Admin Protected Routes */}
+    <Route
+      path="/admin/*"
+      element={
+        <ProtectedRoute role="admin">
+          <AdminDashboards />
+        </ProtectedRoute>
+      }
+    >
+      <Route index element={<Navigate to="manage-courses" replace />} />
+      <Route path="manage-courses" element={<ManageCourse />} />
+      <Route path="manage-modules" element={<ManageModule />} />
+      <Route path="manage-quizzes" element={<ManageQuizze />} />
+      <Route path="user-stats" element={<UserStat />} />
+    </Route>
 
-            <Route index element={<Navigate to="courses" replace />} />
-          <Route path="courses" element={<BrowseCourses />} />
-          <Route path="courses/:courseId" element={<CourseDetail />} />
-          <Route path="courses/:courseId/module/:moduleId/quiz" element={<Quiz />} />
-          <Route path="courses/:courseId/progress" element={<Dashboard />} />
-          <Route path="my-progress" element={<MyProgress />} />
-        </Route>
-      </Routes>
-    </Router>
+    {/* ✅ Student Protected Routes */}
+    <Route
+      path="/student/*"
+      element={
+        <ProtectedRoute role="student">
+          <StudentDashboard />
+        </ProtectedRoute>
+      }
+    >
+      <Route index element={<Navigate to="courses" replace />} />
+      <Route path="courses" element={<BrowseCourses />} />
+      <Route path="courses/:courseId" element={<CourseDetail />} />
+      <Route path="courses/:courseId/module/:moduleId/quiz" element={<Quiz />} />
+      <Route path="courses/:courseId/progress" element={<Dashboard />} />
+      <Route path="my-progress" element={<MyProgress />} />
+    </Route>
+
+    {/* Catch all unmatched routes */}
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes>
+</Router>
+
   );
 };
 
