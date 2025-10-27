@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, token, loading } = useSelector((state) => state.auth);
+  const [ready, setReady] = useState(false);
 
-  // 🔹 Wait until Redux finishes initializing (to prevent blinking/redirect loop)
-  if (loading) {
-    return <div>Loading...</div>;
+  // Delay protection until Redux is fully initialized
+  useEffect(() => {
+    if (!loading) setReady(true);
+  }, [loading]);
+
+  if (!ready) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "1.2rem",
+          fontWeight: "600",
+        }}
+      >
+        Loading...
+      </div>
+    );
   }
 
-  // 🔹 If no user/token, redirect to login
   if (!token || !user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />; // ✅ redirect to home not /login (since login is inside Layout)
   }
 
-  // 🔹 Role-based protection
   if (role && user.role !== role) {
     return <Navigate to="/" replace />;
   }
