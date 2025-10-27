@@ -2,25 +2,24 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-/**
- * ProtectedRoute component
- * @param {ReactNode} children - The component to render if authorized
- * @param {string} role - Optional role to restrict access (e.g., "admin" or "student")
- */
 const ProtectedRoute = ({ children, role }) => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, token, loading } = useSelector((state) => state.auth);
 
+  // 🔹 Wait until Redux finishes initializing (to prevent blinking/redirect loop)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // 🔹 If no user/token, redirect to login
   if (!token || !user) {
-    // Not logged in
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
+  // 🔹 Role-based protection
   if (role && user.role !== role) {
-    // Logged in but wrong role
     return <Navigate to="/" replace />;
   }
 
-  // Authorized
   return children;
 };
 
