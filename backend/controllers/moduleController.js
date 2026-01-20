@@ -1,10 +1,6 @@
-// src/controllers/moduleController.js
 import Module from "../models/Module.js";
 import Progress from "../models/Progress.js";
 
-/**
- * Get Module Content (video/text)
- */
 export const getModuleContent = async (req, res) => {
   try {
     const { moduleId } = req.params;
@@ -25,15 +21,12 @@ export const getModuleContent = async (req, res) => {
   }
 };
 
-/**
- * Mark Module as Complete
- */
+
 export const markModuleComplete = async (req, res) => {
   try {
     const { moduleId } = req.params;
     const userId = req.user.id;
 
-    // Find progress for this course
     const progress = await Progress.findOne({
       user: userId,
       course: req.body.courseId,

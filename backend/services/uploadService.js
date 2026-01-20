@@ -1,8 +1,6 @@
 import cloudinary from "../config/cloudinary.js";
 
-/**
- * Upload file to Cloudinary
- */
+
 export const uploadToCloudinary = async (filePath, folder = "courses") => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
@@ -16,9 +14,7 @@ export const uploadToCloudinary = async (filePath, folder = "courses") => {
   }
 };
 
-/**
- * Delete file from Cloudinary
- */
+
 export const deleteFromCloudinary = async (publicId) => {
   try {
     await cloudinary.uploader.destroy(publicId);

@@ -1,10 +1,7 @@
-// src/controllers/progressController.js
 import Progress from "../models/Progress.js";
 import Course from "../models/Course.js";
 
-/**
- * Get My Progress (per course)
- */
+
 export const getMyProgress = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -18,7 +15,7 @@ export const getMyProgress = async (req, res) => {
       return res.status(404).json({ message: "No progress found for this course" });
     }
 
-    // Calculate completion percentage
+
     const totalModules = await Course.findById(courseId).populate("modules");
     const completionPercentage =
       (progress.completedModules.length / totalModules.modules.length) * 100;
@@ -35,9 +32,7 @@ export const getMyProgress = async (req, res) => {
   }
 };
 
-/**
- * Update Progress (on quiz/module completion)
- */
+
 export const updateProgress = async (req, res) => {
   try {
     const { courseId } = req.params;

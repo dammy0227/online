@@ -1,15 +1,12 @@
-// src/controllers/quizController.js
 import mongoose from "mongoose";
 import Quiz from "../models/Quiz.js";
 import Progress from "../models/Progress.js";
 import { gradeQuiz } from "../services/quizService.js";
 
-/**
- * Submit Quiz Answers
- */
+
 export const submitQuiz = async (req, res) => {
   try {
-    const { quizId } = req.params; // ✅ take from route
+    const { quizId } = req.params; 
     const { courseId, answers } = req.body;
     const userId = req.user?.id;
 
@@ -17,7 +14,6 @@ export const submitQuiz = async (req, res) => {
       return res.status(400).json({ message: "quizId, courseId and answers are required" });
     }
 
-    // Validate quizId as ObjectId
     if (!mongoose.Types.ObjectId.isValid(quizId)) {
       return res.status(400).json({ message: "Invalid quiz ID" });
     }
@@ -53,9 +49,7 @@ export const submitQuiz = async (req, res) => {
   }
 };
 
-/**
- * Get Quiz Results (for review)
- */
+
 export const getQuizResults = async (req, res) => {
   try {
     const { quizId } = req.params;
@@ -83,9 +77,7 @@ export const getQuizResults = async (req, res) => {
   }
 };
 
-/**
- * Admin: Get All Quizzes
- */
+
 export const getAllQuizzes = async (req, res) => {
   try {
     const quizzes = await Quiz.find().populate("module");
@@ -97,9 +89,7 @@ export const getAllQuizzes = async (req, res) => {
   }
 };
 
-/**
- * Get Quizzes by Module
- */
+
 export const getQuizzesByModule = async (req, res) => {
   try {
     const { moduleId } = req.params;

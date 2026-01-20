@@ -21,18 +21,17 @@ const rootReducer = combineReducers({
   courses: courseReducer,
 });
 
-// Persist config
+
 const persistConfig = {
   key: "root",
   storage,
   whitelist: ["auth", "admin"], 
-  // ✅ Only persist auth & admin state (student/artisan can be added later if you have those slices)
 };
 
-// Persisted reducer
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Configure store
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -41,5 +40,5 @@ export const store = configureStore({
     }),
 });
 
-// Persistor
+
 export const persistor = persistStore(store);

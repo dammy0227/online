@@ -24,8 +24,7 @@ const ManageCourse = () => {
 
   const [editingCourse, setEditingCourse] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCreating, setIsCreating] = useState(false); // distinguish between create/edit
-
+  const [isCreating, setIsCreating] = useState(false); 
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
@@ -93,16 +92,16 @@ const ManageCourse = () => {
     <div className="manage-course-container">
       <h1 className="title">Manage Courses</h1>
 
-      {/* Messages */}
+    
       {error && <p className="error">{error}</p>}
       {successMessage && <p className="success">{successMessage}</p>}
 
-      {/* Create Course Button */}
+      
       <button onClick={openCreateModal} className="create-btn">
         Create Course
       </button>
 
-      {/* Modal for Create/Edit */}
+  
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -175,7 +174,7 @@ const ManageCourse = () => {
                   )}
                 </td>
                 <td>{course.title}</td>
-                <td>{course.description}</td>
+                <td>{course.description?.length > 50 ? course.description.slice(0, 50) + '...' : course.description}</td>
                 <td>${course.price}</td>
                 <td>
                   <button onClick={() => handleEdit(course)} className="edit-btn">

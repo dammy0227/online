@@ -15,9 +15,9 @@ const seedAdmin = async () => {
     // Prepare admin data
     const adminData = {
       fullName: "Default Admin",
-      email: "admin@example.com",
+      email: "dammy@gmail.com",
       username: "admin",
-      password: await hashPassword("password123"), // default password
+      password: await hashPassword("dammy123"), 
       role: "admin",
     };
 
@@ -37,5 +37,5 @@ const seedAdmin = async () => {
   }
 };
 
-// Run seeding function
+
 seedAdmin();

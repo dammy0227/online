@@ -1,6 +1,7 @@
 .manage-course-container {
-  padding: 24px;
-  font-family: 'Poppins', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .title {
@@ -15,7 +16,7 @@
 }
 
 .success {
-  color: #16a34a;
+  color:#6b7280 !important;
   margin-bottom: 12px;
 }
 
@@ -53,7 +54,7 @@
 }
 
 .course-form button:hover:not(:disabled) {
-  background-color: #6a0dad;
+  background-color: #5a0ca8;
 }
 
 /* ---------- Table ---------- */
@@ -74,7 +75,7 @@
 }
 
 .thumbnail {
-  width: 80%;
+  width: 80px;
   height: 64px;
   object-fit: cover;
   border-radius: 5px;
@@ -150,10 +151,18 @@
   cursor: pointer;
 }
 .create-btn:hover {
-  background-color: #6a0dad;
+  background-color: #5a0ca8;
 }
 
-/* ---------- 📱 Responsive Adjustments ---------- */
+/* ---------- Responsive Adjustments ---------- */
+@media (max-width: 1024px) {
+  .course-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 768px) {
   .manage-course-container {
     padding: 16px;
@@ -163,18 +172,10 @@
     font-size: 1.5rem;
   }
 
-  /* Make table horizontally scrollable */
-  .course-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
   .course-table th,
   .course-table td {
-    padding: 6px;
     font-size: 0.9rem;
+    padding: 6px;
   }
 
   .thumbnail {
@@ -182,7 +183,10 @@
     height: 48px;
   }
 
-  /* Stack modal form fields tighter */
+  main-content {
+    padding: 0;
+}
+
   .modal-content {
     width: 90%;
     padding: 1.25rem;
@@ -192,6 +196,16 @@
     flex-direction: column;
     gap: 0.75rem;
   }
+
+  .create-btn {
+    width: fit-content;
+  }
+
+  .course-form button {
+    width: 100%;
+  }
+
+
 }
 
 @media (max-width: 480px) {
@@ -199,18 +213,13 @@
     font-size: 1.25rem;
   }
 
-  .create-btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .course-form button {
-    width: 100%;
-  }
-
-  /* Slightly smaller text in table cells */
   .course-table th,
   .course-table td {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 40px;
   }
 }

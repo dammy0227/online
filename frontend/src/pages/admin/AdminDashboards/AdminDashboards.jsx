@@ -6,7 +6,7 @@ const AdminDashboards = () => {
   return (
     <div>
         <AdminLayout>
-      <Outlet /> {/* This is where nested routes will appear */}
+      <Outlet /> 
     </AdminLayout>
     </div>
   )

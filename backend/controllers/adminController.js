@@ -1,4 +1,3 @@
-// src/controllers/adminController.js
 import Course from "../models/Course.js";
 import Module from "../models/Module.js";
 import Quiz from "../models/Quiz.js";
@@ -6,9 +5,7 @@ import User from "../models/User.js";
 import Progress from "../models/Progress.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../services/uploadService.js";
 
-/**
- * Create a new Course
- */
+
 export const createCourse = async (req, res) => {
   try {
     const { title, description, price } = req.body;
@@ -30,9 +27,7 @@ export const createCourse = async (req, res) => {
   }
 };
 
-/**
- * Update Course
- */
+
 export const updateCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -41,9 +36,7 @@ export const updateCourse = async (req, res) => {
     const course = await Course.findById(courseId);
     if (!course) return res.status(404).json({ message: "Course not found" });
 
-    // Handle new thumbnail upload
     if (req.file) {
-      // Delete old thumbnail if it exists
       if (course.thumbnailPublicId) {
         await deleteFromCloudinary(course.thumbnailPublicId);
       }
@@ -60,9 +53,7 @@ export const updateCourse = async (req, res) => {
   }
 };
 
-/**
- * Delete Course (with Cloudinary cleanup)
- */
+
 export const deleteCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -70,12 +61,10 @@ export const deleteCourse = async (req, res) => {
 
     if (!course) return res.status(404).json({ message: "Course not found" });
 
-    // Delete course thumbnail from Cloudinary
     if (course.thumbnailPublicId) {
       await deleteFromCloudinary(course.thumbnailPublicId);
     }
 
-    // Delete all related modules (and their files)
     for (const module of course.modules) {
       if (module.contentPublicId) {
         await deleteFromCloudinary(module.contentPublicId);
@@ -83,7 +72,7 @@ export const deleteCourse = async (req, res) => {
       await Module.findByIdAndDelete(module._id);
     }
 
-    // Finally delete the course
+
     await Course.findByIdAndDelete(courseId);
 
     res.json({ message: "Course and related files deleted successfully" });
@@ -92,9 +81,7 @@ export const deleteCourse = async (req, res) => {
   } 
 };
 
-/**
- * Add Module to Course
- */
+
 export const addModule = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -128,9 +115,7 @@ export const addModule = async (req, res) => {
   }
 };
 
-/**
- * Update Module
- */
+
 export const updateModule = async (req, res) => {
   try {
     const { moduleId } = req.params;
@@ -157,16 +142,14 @@ export const updateModule = async (req, res) => {
   }
 };
 
-/**
- * Delete Module (with Cloudinary cleanup)
- */
+
 export const deleteModule = async (req, res) => {
   try {
     const { moduleId } = req.params;
     const module = await Module.findById(moduleId);
     if (!module) return res.status(404).json({ message: "Module not found" });
 
-    // Delete file from Cloudinary if exists
+
     if (module.contentPublicId) {
       await deleteFromCloudinary(module.contentPublicId);
     }
@@ -180,9 +163,7 @@ export const deleteModule = async (req, res) => {
   }
 };
 
-/**
- * Add Quiz to Module
- */
+
 export const addQuiz = async (req, res) => {
   try {
     const { moduleId } = req.params;
@@ -197,9 +178,7 @@ export const addQuiz = async (req, res) => {
   }
 };
 
-/**
- * Update Quiz
- */
+
 export const updateQuiz = async (req, res) => {
   try {
     const { quizId } = req.params;
@@ -214,9 +193,7 @@ export const updateQuiz = async (req, res) => {
   }
 };
 
-/**
- * Delete Quiz
- */
+
 export const deleteQuiz = async (req, res) => {
   try {
     const { quizId } = req.params;
@@ -229,9 +206,7 @@ export const deleteQuiz = async (req, res) => {
   }
 };
 
-/**
- * View User Stats (Registrations, Enrollments, Progress)
- */
+
 export const getUserStats = async (req, res) => {
   try {
     const totalStudents = await User.countDocuments({ role: "student" });
@@ -240,7 +215,7 @@ export const getUserStats = async (req, res) => {
 
     const totalEnrollments = await Progress.countDocuments();
 
-    // Calculate average completion percentage across all progresses
+
     const progresses = await Progress.find().populate("course", "modules");
     let totalPercentages = 0;
 
@@ -259,7 +234,7 @@ export const getUserStats = async (req, res) => {
       totalAdmins,
       totalCourses,
       totalEnrollments,
-      engagementRate: Math.round(engagementRate), // round for cleaner UI
+      engagementRate: Math.round(engagementRate), 
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

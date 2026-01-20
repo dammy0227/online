@@ -1,16 +1,12 @@
-// src/controllers/courseController.js
 import Course from "../models/Course.js";
 import Progress from "../models/Progress.js";
 
-/**
- * Get all courses (public)
- */
+
 export const getAllCourses = async (req, res) => {
   try {
-    const userId = req.user?.id; // optional if not logged in
+    const userId = req.user?.id; 
     const courses = await Course.find().populate("modules", "title order");
 
-    // add derived fields
     const formatted = courses.map((c) => ({
       ...c.toObject(),
       likesCount: c.likes.length,
@@ -23,21 +19,16 @@ export const getAllCourses = async (req, res) => {
   }
 };
 
-/**
- * Enroll in a course (Student only)
- */
 export const enrollInCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const userId = req.user.id; // comes from authMiddleware
+    const userId = req.user.id;
 
-    // Check if already enrolled
     const existingProgress = await Progress.findOne({ user: userId, course: courseId });
     if (existingProgress) {
       return res.status(400).json({ message: "Already enrolled in this course" });
     }
 
-    // Create new progress record
     const progress = new Progress({
       user: userId,
       course: courseId,
@@ -53,9 +44,6 @@ export const enrollInCourse = async (req, res) => {
   }
 };
 
-/**
- * Get my enrolled courses + progress
- */
 export const getMyCourses = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -70,9 +58,7 @@ export const getMyCourses = async (req, res) => {
   }
 };
 
-/**
- * Get single course details (with modules)
- */
+
 export const getCourseById = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -97,7 +83,6 @@ export const getCourseById = async (req, res) => {
 
 
 
-// ⭐ NEW: toggle like/unlike for a course
 export const toggleCourseLike = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -122,7 +107,6 @@ export const toggleCourseLike = async (req, res) => {
         likesCount: course.likes.length,
       });
     } else {
-      // already liked → remove
       course.likes.splice(index, 1);
       await course.save();
       return res.json({

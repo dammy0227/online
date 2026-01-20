@@ -1,4 +1,3 @@
-// src/courses/courseThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllCourses,
@@ -13,7 +12,7 @@ import {
   deleteCourse,
 } from "../../services/adminApi";
 
-// Fetch all courses (public)
+
 export const fetchAllCourses = createAsyncThunk(
   "courses/fetchAll",
   async (_, { rejectWithValue }) => {
@@ -25,7 +24,7 @@ export const fetchAllCourses = createAsyncThunk(
   }
 );
 
-// Fetch single course details
+
 export const fetchCourseById = createAsyncThunk(
   "courses/fetchById",
   async (courseId, { rejectWithValue }) => {
@@ -37,7 +36,6 @@ export const fetchCourseById = createAsyncThunk(
   }
 );
 
-// Enroll in a course
 export const enrollCourse = createAsyncThunk(
   "courses/enroll",
   async (courseId, { rejectWithValue }) => {
@@ -49,7 +47,7 @@ export const enrollCourse = createAsyncThunk(
   }
 );
 
-// Get my enrolled courses
+
 export const fetchMyCourses = createAsyncThunk(
   "courses/fetchMy",
   async (_, { rejectWithValue }) => {
@@ -62,12 +60,7 @@ export const fetchMyCourses = createAsyncThunk(
 );
 
 
-// ----------------------
-// Admin: COURSE CRUD
-// ----------------------
 
-
-// Create a course
 export const createCourseThunk = createAsyncThunk(
   "courses/create",
   async (formData, { rejectWithValue }) => {
@@ -79,7 +72,7 @@ export const createCourseThunk = createAsyncThunk(
   }
 );
 
-// Update a course
+
 export const updateCourseThunk = createAsyncThunk(
   "courses/update",
   async ({ courseId, formData }, { rejectWithValue }) => {
@@ -91,7 +84,6 @@ export const updateCourseThunk = createAsyncThunk(
   }
 );
 
-// Delete a course
 export const deleteCourseThunk = createAsyncThunk(
   "courses/delete",
   async (courseId, { rejectWithValue }) => {
@@ -103,12 +95,12 @@ export const deleteCourseThunk = createAsyncThunk(
   }
 );
 
-// Toggle like/unlike a course (thunk)
+
 export const toggleCourseLikeThunk = createAsyncThunk(
   "courses/toggleLike",
   async (courseId, { rejectWithValue }) => {
     try {
-      return await toggleCourseLike(courseId); // ✅ call API function
+      return await toggleCourseLike(courseId); 
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }

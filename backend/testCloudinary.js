@@ -1,10 +1,8 @@
-// testCloudinary.js
 import dotenv from "dotenv";
 dotenv.config();
 
 import { v2 as cloudinary } from "cloudinary";
 
-// Config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -18,7 +16,7 @@ console.log({
   api_secret: process.env.CLOUDINARY_API_SECRET ? "✅ exists" : "❌ missing",
 });
 
-// Test upload (tiny base64 image)
+
 const testUpload = async () => {
   try {
     const result = await cloudinary.uploader.upload(

@@ -1,10 +1,7 @@
-// config/cloudinary.js
-
 import dotenv from "dotenv";
 dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
 
-// Config should happen AFTER imports but before exports
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,

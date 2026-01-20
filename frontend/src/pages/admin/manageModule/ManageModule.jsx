@@ -14,13 +14,13 @@ import "./ManageModule.css";
 const ManageModule = () => {
   const dispatch = useDispatch();
 
-  // Redux state
+  
   const { modules, loading, error, successMessage } = useSelector(
     (state) => state.modules
   );
   const { allCourses: courses } = useSelector((state) => state.courses);
 
-  // Local states
+  
   const [formVisible, setFormVisible] = useState(false);
   const [editingModule, setEditingModule] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -32,14 +32,15 @@ const ManageModule = () => {
     file: null,
   });
 
-  // Load courses + modules on mount
+  
   useEffect(() => {
     dispatch(fetchAllCourses());
     dispatch(getAllModulesThunk());
     dispatch(clearModuleMessages());
   }, [dispatch]);
 
-  // Reset form after success
+  
+
   useEffect(() => {
     if (successMessage) {
       resetForm();
@@ -50,7 +51,8 @@ const ManageModule = () => {
     }
   }, [successMessage, dispatch]);
 
-  // Handle input changes
+  
+  
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "file") {

@@ -13,20 +13,19 @@ import { notFound, errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
-// Middleware
+
 app.use(cors({
   origin: [
     "https://online-rosy.vercel.app",
     "http://localhost:5173"
   ],
-  methods: ["*"],   // allows all
+  methods: ["*"],   
   credentials: true,
 }));
 ;
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/modules", moduleRoutes);
@@ -34,7 +33,7 @@ app.use("/api/quizzes", quizRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Error handling
+
 app.use(notFound);
 app.use(errorHandler);
 

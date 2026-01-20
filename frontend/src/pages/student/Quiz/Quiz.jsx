@@ -26,6 +26,7 @@ const Quiz = () => {
     moduleId,
   ]);
 
+  // Merge quizzes with submitted status and details
   const quizzesWithStatus = useMemo(() => {
     return quizzes.map((quiz) => {
       const submission = submittedQuizzes?.find((s) => s.quiz === quiz._id);
@@ -33,23 +34,28 @@ const Quiz = () => {
         ...quiz,
         isSubmitted: Boolean(submission),
         score: submission?.score ?? 0,
-        details: submission?.details || [],
+        details: submission?.details?.map((d) => ({
+          ...d,
+          isCorrect: Boolean(d.isCorrect),
+          userAnswer: d.userAnswer?.trim() ?? "",
+          correct: d.correct?.trim() ?? "",
+        })) || [],
       };
     });
   }, [quizzes, submittedQuizzes]);
 
+  // Fetch quizzes and submitted quizzes on load
   useEffect(() => {
     if (moduleId) dispatch(fetchQuizzesByModule(moduleId));
     if (courseId) dispatch(fetchSubmittedQuizzes(courseId));
   }, [dispatch, moduleId, courseId]);
 
+  // Clear answers for quizzes just submitted
   useEffect(() => {
     if (results?.submittedQuizId) {
       setAnswers((prev) => {
         const newAnswers = { ...prev };
-        const submittedQuiz = quizzes.find(
-          (q) => q._id === results.submittedQuizId
-        );
+        const submittedQuiz = quizzes.find((q) => q._id === results.submittedQuizId);
         submittedQuiz?.questions.forEach((q) => delete newAnswers[q._id]);
         return newAnswers;
       });
@@ -60,14 +66,14 @@ const Quiz = () => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
   };
 
-  const handleSubmit = (quizId) => {
+  const handleSubmit = async (quizId) => {
     const quiz = quizzes.find((q) => q._id === quizId);
     if (!quiz) return;
 
     const quizAnswers = {};
     quiz.questions.forEach((q) => {
       if (answers[q._id] !== undefined && answers[q._id] !== "") {
-        quizAnswers[q._id] = answers[q._id];
+        quizAnswers[q._id] = answers[q._id].trim();
       }
     });
 
@@ -76,7 +82,15 @@ const Quiz = () => {
       return;
     }
 
-    dispatch(submitQuizAnswers({ quizId, answers: quizAnswers, courseId }));
+    // Submit answers
+    const resultAction = await dispatch(
+      submitQuizAnswers({ quizId, answers: quizAnswers, courseId })
+    );
+
+    // On success, fetch submitted quizzes to lock inputs
+    if (submitQuizAnswers.fulfilled.match(resultAction)) {
+      dispatch(fetchSubmittedQuizzes(courseId));
+    }
   };
 
   if (loadingFetch || progressLoading) return <p>Loading quiz…</p>;
@@ -89,6 +103,8 @@ const Quiz = () => {
 
       {quizzesWithStatus.map((quiz) => {
         const hasAnswered = quiz.questions.some((q) => answers[q._id]);
+        const isDisabled = quiz.isSubmitted;
+
         return (
           <section
             key={quiz._id}
@@ -104,59 +120,88 @@ const Quiz = () => {
             </header>
 
             <div className="quiz-questions">
-              {quiz.questions.map((q, idx) => (
-                <div key={q._id} className="question">
-                  <p>
-                    <strong>Q{idx + 1}:</strong> {q.questionText}
-                  </p>
+              {quiz.questions.map((q, idx) => {
+                const detail = quiz.details.find((d) => d.question === q.questionText);
 
-                  <div className="options-row">
-                    {q.options?.map((opt, i) => (
-                      <label key={i} className="option">
+                return (
+                  <div key={q._id} className="question">
+                    <p>
+                      <strong>Q{idx + 1}:</strong> {q.questionText}
+                    </p>
+
+                    {/* MCQ */}
+                    {q.type === "mcq" && (
+                      <div className="options-row">
+                        {q.options?.map((opt, i) => {
+                          const isSelected = answers[q._id] === opt;
+                          const showResult = isDisabled && isSelected;
+
+                          return (
+                            <label key={i} className="option">
+                              <input
+                                type="radio"
+                                name={`q-${quiz._id}-${q._id}`}
+                                value={opt}
+                                checked={isSelected}
+                                onChange={(e) => handleAnswerChange(q._id, e.target.value)}
+                                disabled={isDisabled}
+                              />
+                              <span className="option-label">{String.fromCharCode(65 + i)}.</span>{" "}
+                              {opt}
+                              {showResult && (
+                                <span
+                                  className={`result-icon ${
+                                    detail?.isCorrect ? "correct" : "incorrect"
+                                  }`}
+                                >
+                                  {detail?.isCorrect ? "✅" : "❌"}
+                                </span>
+                              )}
+                            </label>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Text Answer */}
+                    {q.type === "text" && (
+                      <div className="text-answer-wrapper">
                         <input
-                          type="radio"
-                          name={`q-${quiz._id}-${q._id}`}
-                          value={opt}
-                          checked={answers[q._id] === opt}
-                          onChange={(e) =>
-                            handleAnswerChange(q._id, e.target.value)
-                          }
-                          disabled={quiz.isSubmitted}
+                          type="text"
+                          className="text-answer"
+                          value={answers[q._id] || ""}
+                          onChange={(e) => handleAnswerChange(q._id, e.target.value)}
+                          disabled={isDisabled}
                         />
-                        <span className="option-label">{String.fromCharCode(65 + i)}.</span>{" "}
-                        {opt}
-                      </label>
-                    ))}
+                        {isDisabled && detail && (
+                          <span
+                            className={`result-icon ${
+                              detail.isCorrect ? "correct" : "incorrect"
+                            }`}
+                          >
+                            {detail.isCorrect ? "✅" : "❌"}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
-
-                  {q.type === "text" && (
-                    <input
-                      type="text"
-                      className="text-answer"
-                      value={answers[q._id] || ""}
-                      onChange={(e) =>
-                        handleAnswerChange(q._id, e.target.value)
-                      }
-                      disabled={quiz.isSubmitted}
-                    />
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <button
               className="submit-btn"
               onClick={() => handleSubmit(quiz._id)}
-              disabled={loadingAdd || quiz.isSubmitted || !hasAnswered}
+              disabled={loadingAdd || isDisabled || !hasAnswered}
             >
-              {quiz.isSubmitted
+              {isDisabled
                 ? "Already Submitted"
                 : loadingAdd
                 ? "Submitting..."
                 : "Submit Quiz"}
             </button>
 
-            {quiz.isSubmitted && quiz.details?.length > 0 && (
+            {isDisabled && quiz.details?.length > 0 && (
               <div className="results">
                 <h4>Detailed Results</h4>
                 {quiz.details.map((item, idx) => (

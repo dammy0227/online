@@ -1,8 +1,7 @@
-// src/middleware/roleMiddleware.js
 
 /**
  * Restrict access based on role
- * @param {Array} roles - allowed roles, e.g., ["admin"]
+ * @param {Array} roles 
  */
 export const authorizeRoles = (roles = []) => {
   return (req, res, next) => {

@@ -1,4 +1,3 @@
-// src/routes/courseRoutes.js
 import express from "express";
 import {
   getAllCourses,
@@ -12,10 +11,8 @@ import { authenticate } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Public: Get all courses
 router.get("/", getAllCourses);
 
-// Authenticated: Enroll, view courses
 router.post("/:courseId/enroll", authenticate, enrollInCourse);
 router.get("/my", authenticate, getMyCourses);
 router.get("/:courseId", authenticate, getCourseById);

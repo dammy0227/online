@@ -1,4 +1,3 @@
-// src/features/auth/authThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { registerUser, loginUser } from "../../services/authApi";
 
@@ -8,7 +7,7 @@ export const registerThunk = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await registerUser(userData);
-      return response; // { message, token, user }
+      return response; 
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Registration failed"
@@ -23,7 +22,7 @@ export const loginThunk = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await loginUser(credentials);
-      return response; // { message, token, user }
+      return response; 
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Login failed"

@@ -194,11 +194,10 @@
 
   .mq-title {
     font-size: 1.5rem;
-    text-align: center;
   }
 
   .mq-btn {
-    width: 100%;
+    width: fit-content;
     margin-bottom: 10px;
   }
 

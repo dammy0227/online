@@ -1,4 +1,3 @@
-// src/features/quiz/quizSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllQuizzes,
@@ -10,12 +9,12 @@ import {
 } from "./quizThunks";
 
 const initialState = {
-  results: null,                // last submitted quiz result
-  reviewQuiz: null,             // quiz data for review
-  quizzes: [],                  // admin/global list
-  moduleQuizzes: {},            // student view: quizzes by moduleId
-  progress: null,               // student's course progress
-  submittedQuizzes: [],         // array of quiz IDs already submitted
+  results: null,                
+  reviewQuiz: null,             
+  quizzes: [],                  
+  moduleQuizzes: {},            
+  progress: null,               
+  submittedQuizzes: [],         
   loadingFetch: false,
   loadingAdd: false,
   loadingUpdate: false,
@@ -40,9 +39,7 @@ const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ------------------------
-      // Fetch quizzes by module
-      // ------------------------
+      /* ==================== FETCH MODULE QUIZZES ==================== */
       .addCase(fetchQuizzesByModule.pending, (state) => {
         state.loadingFetch = true;
         state.error = null;
@@ -57,9 +54,7 @@ const quizSlice = createSlice({
         state.error = action.payload || action.error.message;
       })
 
-      // ------------------------
-      // Submit quiz answers
-      // ------------------------
+      /* ==================== SUBMIT QUIZ ==================== */
       .addCase(submitQuizAnswers.pending, (state) => {
         state.loadingAdd = true;
         state.error = null;
@@ -69,7 +64,7 @@ const quizSlice = createSlice({
 
         const { result, progress, submittedQuizId, message } = action.payload;
 
-        // Save result for display
+        // Update results for immediate feedback
         state.results = {
           score: result.score,
           total: result.total,
@@ -78,12 +73,30 @@ const quizSlice = createSlice({
           message,
         };
 
-        // Update student progress
+        // Update progress
         state.progress = progress;
 
-        // Track submitted quizzes
-        if (!state.submittedQuizzes.includes(submittedQuizId)) {
-          state.submittedQuizzes.push(submittedQuizId);
+        // Create a full submission object for UI
+        const newSubmission = {
+          quiz: submittedQuizId,
+          score: result.score,
+          details: result.correctAnswers.map((c) => ({
+            question: c.question,
+            userAnswer: c.userAnswer,
+            correct: c.correct,
+            isCorrect: c.isCorrect,
+          })),
+        };
+
+        // Check if quiz already exists in submittedQuizzes
+        const existingIndex = state.submittedQuizzes.findIndex(
+          (s) => s.quiz === submittedQuizId
+        );
+
+        if (existingIndex === -1) {
+          state.submittedQuizzes.push(newSubmission);
+        } else {
+          state.submittedQuizzes[existingIndex] = newSubmission;
         }
       })
       .addCase(submitQuizAnswers.rejected, (state, action) => {
@@ -91,9 +104,7 @@ const quizSlice = createSlice({
         state.error = action.payload || action.error.message;
       });
 
-    // ------------------------
-    // Admin actions: add/update/delete/fetch all
-    // ------------------------
+    /* ==================== FETCH ALL QUIZZES ==================== */
     builder
       .addCase(fetchAllQuizzes.pending, (state) => {
         state.loadingFetch = true;
@@ -108,6 +119,7 @@ const quizSlice = createSlice({
         state.error = action.payload || action.error.message;
       })
 
+      /* ==================== ADD QUIZ ==================== */
       .addCase(addQuizThunk.pending, (state) => {
         state.loadingAdd = true;
         state.error = null;
@@ -122,13 +134,16 @@ const quizSlice = createSlice({
         state.error = action.payload || action.error.message;
       })
 
+      /* ==================== UPDATE QUIZ ==================== */
       .addCase(updateQuizThunk.pending, (state) => {
         state.loadingUpdate = true;
         state.error = null;
       })
       .addCase(updateQuizThunk.fulfilled, (state, action) => {
         state.loadingUpdate = false;
-        const index = state.quizzes.findIndex((q) => q._id === action.payload._id);
+        const index = state.quizzes.findIndex(
+          (q) => q._id === action.payload._id
+        );
         if (index !== -1) state.quizzes[index] = action.payload;
         state.successMessage = "Quiz updated successfully";
       })
@@ -137,6 +152,7 @@ const quizSlice = createSlice({
         state.error = action.payload || action.error.message;
       })
 
+      /* ==================== DELETE QUIZ ==================== */
       .addCase(deleteQuizThunk.pending, (state) => {
         state.loadingDelete = true;
         state.error = null;

@@ -9,9 +9,7 @@ import {
   deleteModule,
 } from "../../services/moduleApi";
 
-// ----------------------
-// Student Actions
-// ----------------------
+
 export const fetchModuleContent = createAsyncThunk(
   "modules/fetchContent",
   async (moduleId, { rejectWithValue }) => {
@@ -34,9 +32,7 @@ export const completeModule = createAsyncThunk(
   }
 );
 
-// ----------------------
-// Admin Module Actions
-// ----------------------
+
 export const getAllModulesThunk = createAsyncThunk(
   "modules/getAll",
   async (_, { rejectWithValue }) => {

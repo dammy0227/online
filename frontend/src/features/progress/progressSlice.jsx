@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchMyProgress, fetchSubmittedQuizzes } from "./progressThunks";
 import { completeModule } from "../modules/moduleThunks";
 
-// Normalize completedModules to array of string IDs
 const normalizeProgress = (progress) => {
   if (!progress) return null;
   return {
@@ -14,10 +13,10 @@ const normalizeProgress = (progress) => {
 };
 
 const initialState = {
-  progress: null, // course progress
-  submittedQuizzes: [], // for Quiz page
-  stats: { quizzesTaken: 0, averageScore: 0 }, // quiz stats
-  score: 0, // quiz score
+  progress: null, 
+  submittedQuizzes: [], 
+  stats: { quizzesTaken: 0, averageScore: 0 }, 
+  score: 0, 
   loading: false,
   error: null,
   successMessage: null,
@@ -41,7 +40,6 @@ const progressSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch progress
       .addCase(fetchMyProgress.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -55,7 +53,7 @@ const progressSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Fetch submitted quizzes for Quiz page
+
       .addCase(fetchSubmittedQuizzes.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -71,7 +69,7 @@ const progressSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Complete Module (optimistic update)
+ 
       .addCase(completeModule.fulfilled, (state, action) => {
         state.successMessage = action.payload?.message || "Module marked complete!";
         if (action.payload?.progress) {

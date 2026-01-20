@@ -1,4 +1,3 @@
-// src/features/quiz/quizThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   submitQuiz,
@@ -8,37 +7,35 @@ import {
 } from "../../services/quizApi";
 import { addQuiz, updateQuiz, deleteQuiz } from "../../services/adminApi";
 
-// ----------------------
-// STUDENT QUIZ THUNKS
-// ----------------------
 
-// Submit quiz answers
+
+
 export const submitQuizAnswers = createAsyncThunk(
   "quiz/submitQuizAnswers",
   async ({ quizId, answers, courseId }, { rejectWithValue }) => {
     try {
       const response = await submitQuiz(quizId, { answers, courseId });
-      return response; // { result, progress, submittedQuizId, message }
+      return response; 
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// Fetch quiz results (for review)
+
 export const fetchQuizResults = createAsyncThunk(
   "quiz/fetchQuizResults",
   async (quizId, { rejectWithValue }) => {
     try {
       const response = await getQuizResults(quizId);
-      return response; // quiz questions for review
+      return response; 
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// Fetch quizzes by module (student)
+
 export const fetchQuizzesByModule = createAsyncThunk(
   "quiz/fetchQuizzesByModule",
   async (moduleId, { rejectWithValue }) => {
@@ -51,9 +48,7 @@ export const fetchQuizzesByModule = createAsyncThunk(
   }
 );
 
-// ----------------------
-// ADMIN QUIZ THUNKS
-// ----------------------
+
 
 export const addQuizThunk = createAsyncThunk(
   "quiz/addQuiz",

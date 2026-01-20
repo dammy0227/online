@@ -1,4 +1,3 @@
-// src/models/Progress.js
 import mongoose from "mongoose";
 
 const progressSchema = new mongoose.Schema({
@@ -14,7 +13,6 @@ submittedQuizzes: [
   {
     quiz: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" },
     score: { type: Number, default: 0 },
-    // ✅ store detailed result
     details: [
       {
         question: String,

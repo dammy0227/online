@@ -1,4 +1,3 @@
-// src/features/auth/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { registerThunk, loginThunk } from "./authThunks";
 
@@ -8,7 +7,7 @@ const savedToken = localStorage.getItem("token");
 const initialState = {
   user: savedUser || null,
   token: savedToken || null,
-  loading: true, // ✅ start true, avoid flicker
+  loading: true, // 
   error: null,
   successMessage: null,
 };
@@ -18,7 +17,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setLoaded: (state) => {
-      state.loading = false; // ✅ called once app initializes
+      state.loading = false;
     },
     logout: (state) => {
       state.user = null;

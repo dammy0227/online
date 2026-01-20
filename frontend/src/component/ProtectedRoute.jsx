@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children, role }) => {
   }
 
   if (!token || !user) {
-    return <Navigate to="/" replace />; // ✅ redirect to home not /login (since login is inside Layout)
+    return <Navigate to="/" replace />; 
   }
 
   if (role && user.role !== role) {

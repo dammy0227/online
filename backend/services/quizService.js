@@ -1,4 +1,3 @@
-// src/services/quizService.js
 import Quiz from "../models/Quiz.js";
 
 /**
@@ -16,8 +15,8 @@ export const gradeQuiz = async (quizId, answers) => {
   const correctAnswers = [];
 
   quiz.questions.forEach((q) => {
-    const userAnswer = answers[q._id] ?? "";       // safe default
-    const correctAnswer = q.correctAnswer ?? "";   // safe default
+    const userAnswer = answers[q._id] ?? "";       
+    const correctAnswer = q.correctAnswer ?? "";   
 
     const isCorrect =
       typeof userAnswer === "string" &&

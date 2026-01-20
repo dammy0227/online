@@ -1,6 +1,8 @@
 /* ---------- Container ---------- */
 .manage-module-container {
-  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: #f7f7f7;
   min-height: 100vh;
   font-family: Arial, sans-serif;
@@ -184,7 +186,7 @@
   }
 
   .add-module-btn {
-    width: 100%;
+    width: fit-content;
     text-align: center;
   }
 

@@ -1,4 +1,3 @@
-// src/courses/courseSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllCourses,
