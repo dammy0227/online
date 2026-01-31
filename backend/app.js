@@ -16,12 +16,13 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "myacademy-online.vercel.app",
+    "https://myacademy-online.vercel.app", // <- include https://
     "http://localhost:5173"
   ],
-  methods: ["*"],   
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true,
 }));
+
 ;
 app.use(express.json());
 app.use(morgan("dev"));
