@@ -16,7 +16,7 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "https://online-rosy.vercel.app",
+    "https://Myacademy.vercel.app",
     "http://localhost:5173"
   ],
   methods: ["*"],   
