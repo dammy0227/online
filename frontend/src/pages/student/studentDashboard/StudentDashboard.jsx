@@ -5,7 +5,7 @@ import StudentLayout from "../../../layout/studentLayout/StudentLayout";
 const StudentDashboard = () => {
   return (
     <StudentLayout>
-      <Outlet /> {/* Nested routes appear here */}
+      <Outlet /> 
     </StudentLayout>
   );
 };

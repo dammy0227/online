@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -23,13 +22,14 @@ import MyProgress from "./pages/student/MyProgress/MyProgress";
 
 import { Navigate } from "react-router-dom";
 
-// Utils
 import ProtectedRoute from "./component/ProtectedRoute";
 
-import "@fontsource/poppins"; 
-import "@fontsource/poppins/600.css"; 
 import "./App.css";
 import Layout from "./pages/student/Layout/Layout";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const App = () => {
    const dispatch = useDispatch();

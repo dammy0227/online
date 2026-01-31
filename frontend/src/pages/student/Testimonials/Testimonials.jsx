@@ -1,5 +1,5 @@
 import React from "react";
-import "./Testimonials.css";
+import Slider from "react-slick";
 
 const testimonials = [
   {
@@ -37,53 +37,92 @@ const testimonials = [
     message: "The instructors are very professional and always ready to help.",
     rating: 5,
   },
-  {
-    id: 6,
-    name: "Emeka Johnson",
-    image: "https://i.pravatar.cc/100?img=55",
-    message: "Loved the flexibility — I could learn at my own pace and schedule.",
-    rating: 4,
-  },
-  {
-    id: 7,
-    name: "Grace Owolabi",
-    image: "https://i.pravatar.cc/100?img=65",
-    message: "The community is amazing, I made new friends while learning!",
-    rating: 5,
-  },
 ];
+
+const sliderSettings = {
+  dots: false,
+  arrows: true,
+  infinite: true,
+  speed: 600,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3500,
+};
+
+const TestimonialCard = ({ t }) => (
+  <div className="relative bg-white rounded-2xl p-5 shadow-md mx-3">
+    {/* Arrow */}
+    <div className="absolute -bottom-4 left-10 w-0 h-0 border-15px border-l-transparent border-r-transparent border-t-white" />
+
+    {/* Header */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-15 h-15 bg-orange-400 rounded-full flex items-center justify-center transition hover:scale-110">
+        <img
+          src={t.image}
+          alt={t.name}
+          className="w-12.5 h-12.5 rounded-full object-cover transition hover:scale-110 hover:brightness-75"
+        />
+      </div>
+      <h3 className="font-semibold text-gray-800">{t.name}</h3>
+    </div>
+
+    <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+      “{t.message}”
+    </p>
+
+    <div className="flex justify-center gap-1">
+      {[...Array(5)].map((_, i) => (
+        <span
+          key={i}
+          className={`text-lg ${
+            i < t.rating ? "text-orange-400" : "text-gray-300"
+          }`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  </div>
+);
 
 const Testimonials = () => {
   return (
-    <section className="testimonials">
-      <h2>Testimonials</h2>
-      <p className="subtitle">Hear what our students have to say!</p>
+    <section className="max-w-300 mx-auto px-4 py-12">
+      {/* Header */}
+      <h2 className="text-2xl  text-orange-600 mb-2">
+        Testimonials
+      </h2>
+      <p className="text-gray-600 mb-6">
+        Hear what our students have to say!
+      </p>
 
-      <div className="testimonial-scroll">
+      {/* 🔹 MOBILE & TABLET — Horizontal Scroll */}
+      <div
+        className="
+          flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3
+          lg:hidden
+          [scrollbar-width:none]
+          [&::-webkit-scrollbar]:hidden
+        "
+      >
         {testimonials.map((t) => (
-          <div key={t.id} className="testimonial-card">
-<div className="card-header">
-  <div className="img-wrapper">
-    <img src={t.image} alt={t.name} className="student-img" />
-  </div>
-  <h3>{t.name}</h3>
-</div>
-
-
-            <p className="message">“{t.message}”</p>
-
-            <div className="stars">
-              {[...Array(5)].map((_, i) => (
-                <span
-                  key={i}
-                  className={i < t.rating ? "star filled" : "star"}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
+          <div
+            key={t.id}
+            className="min-w-[90%] snap-start"
+          >
+            <TestimonialCard t={t} />
           </div>
         ))}
+      </div>
+
+      {/* 🔸 LARGE SCREEN — React Slick */}
+      <div className="hidden lg:block">
+        <Slider {...sliderSettings}>
+          {testimonials.map((t) => (
+            <TestimonialCard key={t.id} t={t} />
+          ))}
+        </Slider>
       </div>
     </section>
   );
