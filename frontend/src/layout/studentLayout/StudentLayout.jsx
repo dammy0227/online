@@ -143,7 +143,7 @@ const StudentLayout = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t mb-8 border-gray-200">
+        <div className="p-4 border-t mb-12 border-gray-200">
           <button
             onClick={handleLogout}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 
