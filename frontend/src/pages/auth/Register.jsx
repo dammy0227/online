@@ -166,7 +166,7 @@ const Register = ({ switchToLogin }) => {
      
         {/* Toggle to Login */}
         <div className="text-center pt-4">
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-900 text-[10px] lg:text-sm">
             Already have an account?{" "}
             <button
               type="button"

@@ -74,8 +74,8 @@ const AdminLayout = ({ children }) => {
         `}
       >
         {/* Sidebar Header */}
-        <div className="p-6 border-b border-gray-200">
-           <div className="lg:hidden flex justify-end mt-3">
+        <div className="p-2 border-b border-gray-200">
+           <div className="lg:hidden flex justify-end mt-0">
             <button
               className="p-2 hover:bg-gray-100 rounded-lg"
               onClick={() => setSidebarOpen(false)}
