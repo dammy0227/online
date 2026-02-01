@@ -34,7 +34,8 @@ const AdminLayout = ({ children }) => {
 
   return (
     <div className="h-screen flex bg-white overflow-hidden">
-      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 z-40 flex items-center justify-between px-4 bg-linear-to-r from-amber-500 to-orange-500 ">
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 z-40 flex items-center justify-between
+       px-4 bg-linear-to-r from-amber-500 to-orange-500 ">
         
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -84,11 +85,11 @@ const AdminLayout = ({ children }) => {
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-linear-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
               <FaGraduationCap className="text-white text-2xl" />
             </div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-linear-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                 EduAdmin Pro
               </h1>
               <p className="text-xs text-gray-500">Learning Management System</p>
@@ -124,8 +125,8 @@ const AdminLayout = ({ children }) => {
           </div>
 
      
-          <div className="mt-auto pt-6">
-            <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <div className="mt-auto pt-0">
+            <div className="p-4 mb-7 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 bg-linear-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-white font-semibold">A</span>
